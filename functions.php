@@ -100,6 +100,30 @@ function ecommerce_setup() {
 		)
 	);
 }
+
+// checkbox field
+add_action( 'woocommerce_after_order_notes', 'quadlayers_subscribe_checkout' );
+
+function quadlayers_subscribe_checkout( $checkout ) {
+woocommerce_form_field( 'subscriber', array(
+'type' => 'checkbox',
+//'required' => true,
+'class' => array('custom-field form-row-wide'),
+'label' => ' Subscribe to our newsletter.'
+), $checkout->get_value( 'subscriber' ) );
+}
+
+add_action( 'woocommerce_checkout_update_order_meta','quadlayers_save_function' );
+function quadlayers_save_function( $order_id ){
+if ( ! empty( $_POST['subscriber'] ) ) {
+update_post_meta( $order_id, 'subscriber', sanitize_text_field( $_POST['subscriber'] ) );
+}
+if ( ! empty( $_POST['feed'] ) ) {
+update_post_meta( $order_id, 'feed',sanitize_text_field( $_POST['feed'] ) );
+}
+}
+
+
 add_action( 'after_setup_theme', 'ecommerce_setup' );
 
 /**
@@ -141,11 +165,14 @@ function ecommerce_scripts() {
 	wp_enqueue_style( 'ecommerce-style', get_stylesheet_uri(), array(), _S_VERSION );	
 	wp_enqueue_style( 'ecommerce-main', get_template_directory_uri() . '/css/bootstrap.min.css' );	
 	wp_enqueue_style( 'css-main', get_template_directory_uri() . '/css/main.css' );	
+	wp_enqueue_style( 'css-cdns', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css' );	
+	wp_enqueue_style( 'css-cdn', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css' );	
 	wp_enqueue_style( 'bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css');	
 	wp_enqueue_style( 'ecommerce-main', get_template_directory_uri() . '/js/bootstrap.min.js');	
 	wp_style_add_data( 'ecommerce-style', 'rtl', 'replace' );
-
 	wp_enqueue_script( 'ecommerce-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'ecommerce-js', get_template_directory_uri() . '/js/main.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'ecommerce-navigation', get_template_directory_uri() . 'http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous', array(), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -197,7 +224,7 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 }
 
 function get_icon_url($imagename){
-	return get_template_directory_uri().'/icons/'.$imagename;
+	return get_template_directory_uri().'/img/'.$imagename;
 };
 
 /**
