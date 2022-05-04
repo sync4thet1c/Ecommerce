@@ -14,22 +14,27 @@
 
 get_header();
 ?>
-<!doctype html>
-<html <?php language_attributes(); ?>>
-<head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="profile" href="https://gmpg.org/xfn/11">
-	<link rel = "stylesheet" href ="/css/main.css?v=<?php echo time(); ?>">
-	<link rel = "stylesheet" href ="style.css?v=<?php echo time(); ?>">
 	<?php wp_head(); ?>
-</head>
+    <!-- favicon -->
+		<link rel="icon" href="https://yt3.ggpht.com/a/AGF-l78km1YyNXmF0r3-0CycCA0HLA_i6zYn_8NZEg=s900-c-k-c0xffffffff-no-rj-mo" type="image/gif" sizes="16x16">
+    <!-- EXTERNAL LINKS -->
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
+
+    <section>
+            <div id="containerSlider">
+                <div id="slidingImage"> <img src="<?php echo get_icon_url('img1.png')?>" alt="image1"> </div>
+                <div id="slidingImage"> <img src="<?php echo get_icon_url('img2.png')?>" alt="image2"> </div>
+                <div id="slidingImage"> <img src="<?php echo get_icon_url('img3.png')?>" alt="image3"> </div>
+                <div id="slidingImage"> <img src="<?php echo get_icon_url('img4.png')?>" alt="image4"> </div>
+            </div>
+    </section>
+
+    <!-- <script src=“https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js”></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 
 	<main id="primary" class="site-main">
-		<div class="bg-image">
-
-		</div>
-
 		<?php
 		while ( have_posts() ) :
 			the_post();
@@ -44,8 +49,9 @@ get_header();
 		endwhile; // End of the loop.
 		?>
 
-	</main><!-- #main -->
+	</main>
+	<!-- #main -->
 
 <?php
 
-// get_footer();
+get_footer();
